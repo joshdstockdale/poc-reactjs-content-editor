@@ -1,0 +1,38 @@
+import React, {PropTypes} from 'react';
+import ContentEditor from './views/contentEditor';
+//import settings from './views/settingsEditor';
+import FlipCard from 'react-flipcard';
+
+const ItemPane = ({items, folders, tags, templates, clickEvents, activeItem}) => {
+
+  function showSettings(){
+
+  }
+  function getActiveView(activeItem, clickEvents){
+    if(typeof activeItem !== 'undefined'){
+      if(typeof activeItem.content !== 'undefined'){
+        //
+        return (<ContentEditor key={activeItem.id} activeItem={activeItem} id={activeItem.id} updateItemState={clickEvents.updateItemState} showSettings={showSettings} />);
+      }
+    }
+    return (<ContentEditor key={0} id={0} updateItemState={clickEvents.updateItemState} showSettings={showSettings} />);
+  }
+
+  return (
+    <div className="content">
+
+      {getActiveView(activeItem, clickEvents)}
+    </div>
+  );
+};
+
+ItemPane.propTypes = {
+  items: React.PropTypes.array.isRequired,
+  folders: React.PropTypes.array.isRequired,
+  tags: React.PropTypes.array.isRequired,
+  templates: React.PropTypes.array.isRequired,
+  clickEvents: React.PropTypes.object.isRequired,
+  activeItem: React.PropTypes.object
+};
+
+export default ItemPane;
